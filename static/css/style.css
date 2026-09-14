@@ -1,0 +1,237 @@
+/* ==========================================================================
+   Project page template stylesheet
+   Tweak the variables below to rebrand. No build step required.
+   ========================================================================== */
+
+:root {
+  --accent: #2962ff;          /* link + button color */
+  --accent-dark: #0039cb;
+  --text: #1a1a1a;
+  --text-muted: #555;
+  --bg: #ffffff;
+  --bg-alt: #f5f7fa;
+  --border: #e3e6ea;
+  --maxw: 1000px;
+  --maxw-narrow: 760px;
+  --font-body: "Noto Sans", "Google Sans", system-ui, -apple-system, sans-serif;
+  --font-head: "Google Sans", "Noto Sans", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.65;
+  font-size: 17px;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+.container.narrow { max-width: var(--maxw-narrow); }
+
+/* ===== Hero ===== */
+.hero {
+  /* Soft light falling from a single viewpoint, over a cool ground that fades to white. */
+  background:
+    radial-gradient(115% 85% at 50% -8%,
+      rgba(41, 98, 255, 0.13) 0%,
+      rgba(41, 98, 255, 0.05) 40%,
+      rgba(41, 98, 255, 0) 72%),
+    linear-gradient(180deg, #e9eef7 0%, #f4f7fb 46%, var(--bg) 100%);
+  padding: 72px 0 44px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.paper-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+.venue {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: rgba(41, 98, 255, 0.1);
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin: 0 0 20px;
+  font-size: 0.95rem;
+}
+.authors { font-size: 1.15rem; margin-bottom: 8px; }
+.author { margin: 0 10px; white-space: nowrap; }
+.author a { color: var(--text); font-weight: 600; }
+.author a:hover { color: var(--accent); }
+.affiliations { color: var(--text-muted); font-size: 1rem; }
+.affiliations span { margin: 0 8px; }
+.author-note {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-style: italic;
+  border-top: 1px solid var(--border);
+  max-width: 340px;
+  margin: 14px auto 0;
+  padding-top: 10px;
+}
+
+/* ===== Action buttons ===== */
+.links { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.link-button {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--text); color: #fff;
+  padding: 10px 20px; border-radius: 999px;
+  font-weight: 600; font-size: 0.95rem;
+  transition: background 0.15s, transform 0.15s;
+}
+.link-button:hover { background: var(--accent); text-decoration: none; transform: translateY(-1px); }
+.link-button i { font-size: 1.05rem; }
+
+/* ===== Sections ===== */
+.section { padding: 44px 0; }
+.section:nth-of-type(even) { background: var(--bg-alt); }
+h2 {
+  font-family: var(--font-head);
+  font-size: 1.6rem; font-weight: 700;
+  text-align: center; margin: 0 0 24px;
+}
+/* Let headings run wider than the narrow text column so they stay on one line. */
+@media (min-width: 940px) {
+  .container.narrow h2 { margin-left: -90px; margin-right: -90px; white-space: nowrap; }
+}
+h3 {
+  font-family: var(--font-head);
+  font-size: 1.18rem; font-weight: 700;
+  text-align: center; margin: -10px 0 14px;
+}
+.abstract { text-align: justify; }
+
+/* ===== Figures ===== */
+figure { margin: 24px 0; text-align: center; }
+figure img { max-width: 100%; height: auto; border-radius: 8px; }
+figcaption { color: var(--text-muted); font-size: 0.92rem; margin-top: 10px; }
+.teaser img { box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+
+.figure-lead {
+  max-width: 1000px;
+  margin: 0 auto 10px;
+  text-align: center;
+  font-size: 1.22rem;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+@media (max-width: 760px) { .figure-lead { font-size: 1.12rem; } }
+
+/* ===== Result tables ===== */
+.tablewrap { overflow-x: auto; margin: 24px 0; }
+.restable {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+.restable th, .restable td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.restable thead th { border-bottom: 2px solid var(--text); font-family: var(--font-head); }
+.restable th:first-child, .restable td:first-child { text-align: left; }
+.restable th:not(:first-child), .restable td:not(:first-child) { text-align: center; }
+.restable tbody tr:last-child td { border-bottom: 2px solid var(--text); }
+.restable td b { color: var(--accent-dark); }
+.restable tr.rule-above td { border-top: 1px solid var(--border); }
+.table-note { color: var(--text-muted); font-size: 0.92rem; margin: -8px 0 0; }
+
+/* ===== Takeaway line under a figure or table ===== */
+.takeaway {
+  border-left: 3px solid var(--accent);
+  padding: 2px 0 2px 14px;
+  margin: 18px 0 28px;
+  color: var(--text);
+}
+
+/* ===== Stat strip ===== */
+.stats { display: flex; flex-wrap: wrap; gap: 28px; margin: 20px 0 4px; }
+.stats div { line-height: 1.25; }
+.stats b { display: block; font-family: var(--font-head); font-size: 1.5rem; color: var(--accent-dark); }
+.stats span { color: var(--text-muted); font-size: 0.9rem; }
+
+/* ===== Carousel ===== */
+.carousel { position: relative; max-width: 760px; margin: 0 auto; }
+.carousel .slides { overflow: hidden; border-radius: 8px; }
+.carousel .slide { display: none; text-align: center; }
+.carousel .slide.active { display: block; }
+.carousel .slide img { max-width: 100%; border-radius: 8px; }
+.carousel .slide p { color: var(--text-muted); font-size: 0.92rem; margin: 10px 0 0; }
+.carousel-btn {
+  position: absolute; top: 40%; transform: translateY(-50%);
+  background: rgba(0,0,0,0.5); color: #fff; border: none;
+  width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+  font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+}
+.carousel-btn:hover { background: var(--accent); }
+.carousel-btn.prev { left: -8px; }
+.carousel-btn.next { right: -8px; }
+.dots { text-align: center; margin-top: 12px; }
+.dots button {
+  width: 10px; height: 10px; border-radius: 50%; border: none;
+  background: var(--border); margin: 0 4px; cursor: pointer; padding: 0;
+}
+.dots button.active { background: var(--accent); }
+
+/* ===== Video ===== */
+.video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 8px; overflow: hidden; }
+.video-wrapper iframe, .video-wrapper video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* ===== BibTeX ===== */
+.bibtex {
+  background: #1e1e2e; color: #e0e0e0;
+  padding: 20px; border-radius: 8px; overflow-x: auto;
+  font-size: 0.88rem; line-height: 1.5; text-align: left;
+}
+.copy-btn {
+  margin-top: 10px; background: var(--text); color: #fff; border: none;
+  padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem;
+}
+.copy-btn:hover { background: var(--accent); }
+
+/* ===== Footer ===== */
+.footer { padding: 32px 0; text-align: center; color: var(--text-muted); font-size: 0.88rem; border-top: 1px solid var(--border); }
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .author { display: inline-block; margin: 2px 8px; }
+  .carousel-btn.prev { left: 4px; }
+  .carousel-btn.next { right: 4px; }
+}
+
+/* ===== TL;DR callout ===== */
+.tldr-section { padding-top: 36px; padding-bottom: 8px; }
+.tldr-wrap { max-width: 1180px; }
+.tldr-section.section:nth-of-type(even) { background: var(--bg); }
+.tldr {
+  background: var(--bg-alt);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 18px 22px;
+  margin: 0;
+  font-size: 1.02rem;
+}
+.tldr-label {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--accent-dark);
+  letter-spacing: 0.04em;
+  margin-right: 8px;
+}
+
+/* video grid for the supplementary page */
+.video-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin: 16px 0 24px; }
+.video-grid figure { margin:0; }
+.video-grid video { width:100%; height:auto; background:#000; border-radius:6px; }
+.video-grid figcaption { font-size:.92rem; margin-top:6px; }
