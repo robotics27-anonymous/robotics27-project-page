@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Anonymous project page (double-blind review). Do not add names, affiliations, or links to identifying accounts. -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -45,7 +44,7 @@
     <div class="container">
       <figure class="teaser">
         <img src="static/images/fig_teaser.png?v=20260916113000" alt="Overview of RoboPace: fast in free space, slow near contact">
-        <figcaption>A contact-rich task needs different speeds in different phases. RoboPace preserves the policy's geometric path and retimes it: full speed in free space, slow down upon approach and contact. Same path, less total time.</figcaption>
+        <figcaption>RoboPace preserves the policy's geometric path while adapting its timing to predicted contact. It completes the same path faster than uniformly slow execution while maintaining comparable reliability.</figcaption>
       </figure>
     </div>
   </section>
@@ -85,11 +84,11 @@
       <h2>Videos</h2>
       <p class="takeaway">One successful RoboPace run per command, real time, hand-held camera.</p>
       <div class="video-grid">
-        <figure><video controls preload="metadata" src="videos/cup_robopace.mp4?v=20260914202523"></video><figcaption>Cup: place a cup on a plate.</figcaption></figure>
-        <figure><video controls preload="metadata" src="videos/socks_robopace.mp4?v=20260914202523"></video><figcaption>Socks: pick a pair of socks and put it into a container.</figcaption></figure>
-        <figure><video controls preload="metadata" src="videos/pyr1_robopace.mp4?v=20260914202523"></video><figcaption>Pyramid phase 1: the first cup of the pyramid.</figcaption></figure>
-        <figure><video controls preload="metadata" src="videos/pyr2_robopace.mp4?v=20260914202523"></video><figcaption>Pyramid phase 2: the second cup, next to the first.</figcaption></figure>
-        <figure><video controls preload="metadata" src="videos/pyr3_robopace.mp4?v=20260914202523"></video><figcaption>Pyramid phase 3: the third cup on top.</figcaption></figure>
+        <figure><video controls preload="metadata" src="videos/cup_robopace.mp4?v=20260914202523"></video><figcaption>Cup &mdash; &ldquo;Pick up the cup with your right hand and set it on the plate&rdquo;</figcaption></figure>
+        <figure><video controls preload="metadata" src="videos/socks_robopace.mp4?v=20260914202523"></video><figcaption>Socks &mdash; &ldquo;Pick up pairs of blue socks of with the right gripper and place in the container.&rdquo;</figcaption></figure>
+        <figure><video controls preload="metadata" src="videos/pyr1_robopace.mp4?v=20260914202523"></video><figcaption>Pyramid phase 1 &mdash; &ldquo;Pick up one cup with the right gripper and place it onto the plate.&rdquo;</figcaption></figure>
+        <figure><video controls preload="metadata" src="videos/pyr2_robopace.mp4?v=20260914202523"></video><figcaption>Pyramid phase 2 &mdash; &ldquo;Pick up a second cup with the left gripper and place it onto the plate next to the first cup.&rdquo;</figcaption></figure>
+        <figure><video controls preload="metadata" src="videos/pyr3_robopace.mp4?v=20260914202523"></video><figcaption>Pyramid phase 3 &mdash; &ldquo;Pick up the remaining cup with the right gripper and place it on top to form a 3-cup pyramid.&rdquo;</figcaption></figure>
         <figure><video controls preload="metadata" src="videos/parts_handover_robopace.mp4?v=20260914202523"></video><figcaption>Part: pick a part, hand it over in the air, place it into a cell (qualitative run, Fig. 4 of the paper).</figcaption></figure>
       </div>
       <figure class="teaser-width">
@@ -100,6 +99,7 @@
   </section>
 
 
+<!--
   <section class="section" id="supplementary">
     <div class="container narrow">
       <h2>Supplementary results</h2>
@@ -141,6 +141,7 @@
       <p>Linear-<i>N</i>3 collects the most successes, 32 in 50 against 27 for Tanh-<i>N</i>3 and 25 for Tanh-<i>N</i>9; the three agree within one or two successes on four commands and part on Cup, where Linear-<i>N</i>3 succeeds twice as often. Two properties may contribute: <i>N<sub>b</sub></i> is how long the outgoing chunk is kept alive after a newer one has arrived, so a longer window delays every correction, which costs most on Cup, whose successful runs span 10 to 111&nbsp;s because the policy regrasps; &Delta;&beta;<sub>max</sub> is the velocity step the controller must track at the transition, and the only schedule the operator marked as stabbing at the main limit is Cosine-<i>N</i>3, whose jump is 0.50. Linear-<i>N</i>3 is the shortest window at the smallest jump it allows (1/<i>N<sub>b</sub></i>) and is the configuration reported as RoboPace; the choice was made after the main runs, and the Tanh rows are the evidence it rests on.</p>
     </div>
   </section>
+-->
 
   <section class="section">
     <div class="container narrow">

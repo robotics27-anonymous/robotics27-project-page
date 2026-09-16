@@ -47,7 +47,7 @@ document.querySelectorAll("[data-copy-bibtex]").forEach(function (btn) {
 });
 
 
-// ----- Speed strip: one tick per commanded step, as in Fig. 7 of the paper --------
+// ----- Speed strip: one tick per commanded step, as in Fig. 4 of the paper --------
 // STEPS = [[video time, 1 if a contact cue had fired at that commanded step]].
 (function () {
   const video = document.querySelector(".hero-bg");
