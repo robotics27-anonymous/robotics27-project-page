@@ -129,6 +129,10 @@ figcaption { color: var(--text-muted); font-size: 0.92rem; margin-top: 10px; }
 }
 @media (max-width: 760px) { .figure-lead { font-size: 1.12rem; } }
 
+/* ===== Formula ===== */
+.formula { text-align: center; font-size: 1.1em; margin: 12px 0; }
+h3 { margin-top: 28px; }
+
 /* ===== Result tables ===== */
 .tablewrap { overflow-x: auto; margin: 24px 0; }
 .restable {
@@ -235,3 +239,31 @@ figcaption { color: var(--text-muted); font-size: 0.92rem; margin-top: 10px; }
 .video-grid figure { margin:0; }
 .video-grid video { width:100%; height:auto; background:#000; border-radius:6px; }
 .video-grid figcaption { font-size:.92rem; margin-top:6px; }
+
+/* hero: the run video (with its speed strip) is the background; the title sits on top of it */
+.hero-video { position: relative; padding: 0; overflow: hidden; background: linear-gradient(180deg, #4b5259 0%, #3f464d 100%); border-bottom: 0; }
+.stage-wrap { text-align: center; }
+.stage { position: relative; display: inline-block; vertical-align: bottom; max-width: 100%; }
+.stage .hero-bg { display: block; height: min(70vh, 640px); width: auto; max-width: 100%; filter: grayscale(55%) brightness(.78) contrast(.92); }
+.stage::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(75,82,89,.35); pointer-events: none; }
+/* title block overlaid on the stage */
+.hero-video .container.hero-content { position: absolute; left: 0; right: 0; top: 34px; z-index: 4; max-width: 1100px; pointer-events: none; }
+.hero-video .container.hero-content a { pointer-events: auto; }
+.hero-video .paper-title { font-size: clamp(1.5rem, 3.1vw, 2.35rem); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.6), 0 0 18px rgba(0,0,0,.45); }
+.hero-video .venue { background: rgba(255,255,255,.85); color: #2b3a57; }
+.hero-video .links { margin-top: 14px; }
+/* soft scrim so the title reads over the video */
+.hero-video::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 240px; z-index: 3;
+  background: linear-gradient(180deg, rgba(20,24,28,.55) 0%, rgba(20,24,28,.25) 65%, rgba(20,24,28,0) 100%); pointer-events: none; }
+.stage .mode-label { position: absolute; right: 16px; bottom: 54px; z-index: 3; text-align: right; line-height: 1.12;
+  font-family: var(--font-head); font-weight: 700; font-size: clamp(1.05rem, 2.2vw, 1.6rem); letter-spacing: .06em;
+  text-shadow: 0 1px 3px rgba(0,0,0,.55), 0 0 12px rgba(0,0,0,.35); }
+.stage .mode-label.max { color: #7FD8C4; } .stage .mode-label.limited { color: #FF8F87; }
+.stage .mode-label .sub { display: block; font-weight: 500; font-size: .55em; letter-spacing: .02em; opacity: .9; }
+.stage .stepband { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; margin: 0; opacity: .9; }
+.stage .stepband canvas { display: block; width: 100%; height: 44px; }
+@media (max-width: 600px) { .stage .stepband canvas { height: 34px; } .stage .mode-label { bottom: 40px; right: 10px; } .hero-video .container.hero-content { top: 18px; } }
+
+/* figures set to the same width as Fig. 1 (the teaser's container) even inside a narrow column */
+figure.teaser-width { width: min(calc(100vw - 48px), calc(var(--maxw) - 48px)); margin-left: calc(50% - min(calc(50vw - 24px), calc(var(--maxw) / 2 - 24px))); }
+figure.teaser-width img { width: 100%; max-width: none; }

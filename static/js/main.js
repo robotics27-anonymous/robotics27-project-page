@@ -45,3 +45,42 @@ document.querySelectorAll("[data-copy-bibtex]").forEach(function (btn) {
     });
   });
 });
+
+
+// ----- Speed strip: one tick per commanded step, as in Fig. 7 of the paper --------
+// STEPS = [[video time, 1 if a contact cue had fired at that commanded step]].
+(function () {
+  const video = document.querySelector(".hero-bg");
+  const canvas = document.getElementById("stepband");
+  if (!video || !canvas || typeof STEPS === "undefined") return;
+  const ctx = canvas.getContext("2d");
+  const FREE = "#7FD8C4", GATE = "#FF8F87", INK = "#F2F4F5";
+  const LABEL = ["MAX SPEED", "LIMITED SPEED"], SUB = ["free space", "near predicted contact"];
+  function draw() {
+    const W = canvas.clientWidth, H = canvas.clientHeight;
+    if (canvas.width !== Math.round(W * devicePixelRatio)) { canvas.width = W * devicePixelRatio; canvas.height = H * devicePixelRatio; }
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    const dur = video.duration || STEPS[STEPS.length - 1][0] + 1, now = video.currentTime || 0;
+    const X = t => (t / dur) * W, px = X(now);
+    ctx.fillStyle = "rgba(20,24,28,0.45)"; ctx.fillRect(0, 0, W, H);
+    let mode = null, lastT = -1;
+    for (const [t, g] of STEPS) {
+      if (t > now) break;
+      const x = X(t);
+      ctx.fillStyle = g ? GATE : FREE;
+      ctx.fillRect(x - 0.75, g ? H * 0.12 : H * 0.22, 1.5, g ? H * 0.76 : H * 0.56);
+      mode = g; lastT = t;
+    }
+    if (now - lastT > 1.5) mode = null;                 // idle: no step in the last 1.5 s
+    ctx.fillStyle = "rgba(255,255,255,.10)"; ctx.fillRect(px - 6, 0, 12, H);
+    ctx.fillStyle = INK; ctx.fillRect(px - 1, 0, 2, H);
+    const lbl = document.getElementById("modelabel");
+    if (lbl) {
+      const html = mode === null ? "" : LABEL[mode] + '<span class="sub">' + SUB[mode] + "</span>";
+      if (lbl.innerHTML !== html) { lbl.innerHTML = html; lbl.className = "mode-label " + (mode === null ? "" : (mode ? "limited" : "max")); }
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
