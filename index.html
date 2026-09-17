@@ -43,7 +43,7 @@
   <section class="section">
     <div class="container">
       <figure class="teaser">
-        <img src="static/images/fig_teaser.png?v=20260916113000" alt="Overview of RoboPace: fast in free space, slow near contact">
+        <img src="static/images/fig_teaser.png?v=20260917162000" alt="Overview of RoboPace: fast in free space, slow near contact">
         <figcaption>RoboPace preserves the policy's geometric path while adapting its timing to predicted contact. It completes the same path faster than uniformly slow execution while maintaining comparable reliability.</figcaption>
       </figure>
     </div>
@@ -54,12 +54,12 @@
       <h2>How it works</h2>
       <p class="takeaway">Two inputs arrive in parallel: the policy's action chunk and a per-hand contact predictor on the wrist camera. RoboPace turns the chunk into a joint path, marks the waypoints where a contact is imminent, and solves for a new timing that is fast elsewhere and held at the contact speed limit there.</p>
       <figure class="teaser-width">
-        <img src="static/images/fig_overview.png?v=20260916113000" alt="System overview">
+        <img src="static/images/fig_overview.png?v=20260917162000" alt="System overview">
         <figcaption>System overview. Left: the VLA and its action chunk. Center: chunk IK, contact prediction (hand&ndash;environment, hand&ndash;hand, wrist-camera contact predictor), contact-aware TOPP-RA, play-out. Right: the same path with a new timing.</figcaption>
       </figure>
       <figure class="teaser-width">
-        <img src="static/images/fig_pipeline.png?v=20260916113000" alt="Deployed pipeline with feedback wires">
-        <figcaption>Deployed pipeline. The chunk is converted to a joint path, blended into the in-flight plan, flagged by the geometric and camera gates at contact-critical waypoints, and retimed by contact-aware TOPP-RA. Dashed: feedback &mdash; progress and anchor to the chunk IK, the commanded velocity as the entry speed of the next solve, the requery of the policy, and the gripper chunk that bypasses the IK.</figcaption>
+        <img src="static/images/fig_pipeline.png?v=20260917162000" alt="Deployed pipeline with feedback wires">
+        <figcaption>Deployed pipeline. The chunk is converted to a joint path, blended into the in-flight plan, flagged by the geometric and camera gates at contact-critical waypoints, and retimed by contact-aware TOPP-RA. Dashed: feedback &mdash; progress and anchor to the chunk IK, the commanded velocity as the entry speed of the next solve, and the requery of the policy mid-chunk.</figcaption>
       </figure>
     </div>
   </section>
@@ -67,13 +67,13 @@
   <section class="section">
     <div class="container narrow">
       <h2>Main result</h2>
-      <p class="takeaway">On a dual-arm robot and five commands, RoboPace has the highest success rate on four of five, matching the reliability of the slow uniform rate in about half its time. Uniformly faster execution fails at contact; uniformly slower execution is reliable but slow.</p>
+      <p class="takeaway">On a dual-arm robot and five commands, RoboPace matches or exceeds the success rate of slow uniform execution on all five commands, completes four of them in about half its time, and exceeds the demo-speed success rate on four of five. Uniformly faster execution and physical-limit-only retiming largely fail; uniformly slower execution is reliable but slow.</p>
       <figure>
-        <img src="static/images/fig_main.png?v=20260916113000" alt="Per-command results: success rate and mean time">
+        <img src="static/images/fig_main.png?v=20260917162000" alt="Per-command results: success rate and mean time">
         <figcaption>Per-command results, ten hardware trials per cell: success rate, mean time over successful trials and over all trials (photos: start, first contact, place), and the total successes out of 50. Bold marks the best value per column.</figcaption>
       </figure>
       <figure>
-        <img src="static/images/fig_ablation.png?v=20260916113000" alt="Contact speed limit and transition schedule sweep">
+        <img src="static/images/fig_ablation.png?v=20260917162000" alt="Contact speed limit and transition schedule sweep">
         <figcaption>Performance is more sensitive to the contact speed limit than to the transition schedule: each hull holds the six schedules run at one limit on Pyramid phase 2 (five trials per point); the ringed point is the proposed configuration (Linear-N3, 0.02 m/s). Right is faster, up is better.</figcaption>
       </figure>
     </div>
@@ -92,8 +92,8 @@
         <figure><video controls preload="metadata" src="videos/parts_handover_robopace.mp4?v=20260914202523"></video><figcaption>Part: pick a part, hand it over in the air, place it into a cell (qualitative run, Fig. 4 of the paper).</figcaption></figure>
       </div>
       <figure class="teaser-width">
-        <img src="static/images/fig_sps.png?v=20260916113000" alt="The handover run with all gate signals over time">
-        <figcaption>The Part run over time: commanded steps and the speed mode (teal = full speed, red = slowed by a gate), hand speed with the contact speed limit, predicted steps to contact, hand&ndash;table and hand&ndash;hand distances, all from the same recording.</figcaption>
+        <img src="static/images/fig_sps.png?v=20260917162000" alt="The handover run with all gate signals over time">
+        <figcaption>The Part run over time: commanded steps and the speed mode (teal = full speed, red = slowed by a gate), hand speed with the contact speed limit, predicted steps to contact, hand&ndash;table and hand&ndash;hand distances, all from the same recording. The speed mode reflects the per-waypoint countdown test, so it can turn red while the plotted countdown is still slightly above the threshold.</figcaption>
       </figure>
     </div>
   </section>
@@ -102,7 +102,7 @@
 <!--
   <section class="section" id="supplementary">
     <div class="container narrow">
-      <h2>Supplementary results</h2>
+      <h2>Ablation Studies</h2>
       <p class="takeaway">Two analyses that support the paper's choices but are not needed to read it: a smoothness cost of every condition, and the transition schedule run on every command.</p>
 
       <h3>Smoothness cost</h3>
@@ -146,7 +146,7 @@
   <section class="section">
     <div class="container narrow">
       <h2>Paper Abstract</h2>
-      <p class="abstract">Robot manipulation data has been shifting from teleoperation toward demonstrations, through robot-free interfaces such as Universal Manipulation Interface (UMI) or directly from human hands. Vision-Language-Action (VLA) policies trained on such data inherit the demonstrator's timing. Yet human timing does not directly transfer to robots: compliant hands tolerate fast contact, whereas robots may overshoot under actuator and tracking limits; conversely, robots can move faster in free space. This motivates a unified approach that reconciles execution speed with contact safety. We present RoboPace, an online retiming layer that preserves the policy's geometric path while adapting its timing to the kinematic and dynamic constraints of the target robot. It adapts execution speed based on predicted contact, jointly accounting for contact-dependent speed limits and the robot's motion constraints. The method requires no policy retraining and operates in real time. Across three contact-rich tasks on a dual-arm robot, we find that RoboPace achieves higher success than a high-success-rate uniform baseline while roughly halving execution time, yielding a better speed&ndash;success trade-off than the baselines.</p>
+      <p class="abstract">Robot manipulation data collection has been shifting from teleoperation toward robot-free demonstrations, through interfaces such as the Universal Manipulation Interface (UMI) or directly from human hands. Vision-Language-Action (VLA) policies trained on such data inherit the demonstrator's timing. Yet human timing does not directly transfer to robots: compliant hands tolerate fast contact, whereas robots may overshoot due to actuator and tracking limitations; conversely, robots can move faster in free space. This motivates a unified approach that reconciles execution speed with contact safety. We present RoboPace, an online retiming layer that preserves the policy's geometric path while adapting its timing to the kinematic and dynamic constraints of the target robot. It adapts execution speed based on predicted contact, jointly accounting for contact-dependent speed limits and the robot's motion constraints. The method requires no policy retraining and operates in real time. Across three contact-rich tasks on a dual-arm robot, faster uniform execution and physical-limit-only retiming largely fail. RoboPace instead achieves higher overall success than slow uniform execution while completing four of five commands in approximately half the time, retaining the reliability of slow execution without its time cost.</p>
     </div>
   </section>
 
